@@ -1,4 +1,4 @@
-package com.WH;
+package com.device;
 
 import android.app.Activity;
 import android.graphics.Point;
@@ -6,7 +6,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 
-public class WH {
+public class Edge {
 	public static int Width;
 	public static int Height;
 

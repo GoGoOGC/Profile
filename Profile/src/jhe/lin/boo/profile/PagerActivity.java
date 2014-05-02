@@ -24,8 +24,8 @@ package jhe.lin.boo.profile;
 
 
 
-import com.Animation.ZoomOutPageTransformer;
-import com.WH.WH;
+import com.animation.ZoomOutPageTransformer;
+import com.device.Edge;
 
 import jhe.lin.boo.profile.R;
 import jhe.lin.boo.profile.view.CircleView;
@@ -64,18 +64,18 @@ public class PagerActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        WH.getDisplayMetrics(this);
+        Edge.getDisplayMetrics(this);
         
         audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
         
         pager_bar = (LinearLayout)findViewById(R.id.pager_bar);
         LayoutParams ll=(LayoutParams)pager_bar.getLayoutParams();
-        ll.topMargin=WH.getHeightPercent(70);
+        ll.topMargin=Edge.getHeightPercent(70);
         pager_bar.setLayoutParams(ll);
         
         title = (TextView)findViewById(R.id.title);
         ll=(LayoutParams)title.getLayoutParams();
-        ll.topMargin=WH.getHeightPercent(10);
+        ll.topMargin=Edge.getHeightPercent(10);
         title.setLayoutParams(ll);
         
         pager = (ViewPager)findViewById(R.id.pager);
@@ -149,7 +149,7 @@ public class PagerActivity extends Activity {
         	LayoutParams l=new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
         	root.setLayoutParams(l);
             Button view = new Button(PagerActivity.this);
-            l=new LayoutParams(WH.getWeightPercent(50),WH.getHeightPercent(30));
+            l=new LayoutParams(Edge.getWeightPercent(50),Edge.getHeightPercent(30));
             l.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
             view.setLayoutParams(l);
             view.setText(item[position]);

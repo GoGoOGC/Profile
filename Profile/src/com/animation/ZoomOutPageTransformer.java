@@ -1,4 +1,4 @@
-package com.Animation;
+package com.animation;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
