@@ -39,14 +39,15 @@
         android:id="@+id/pager_bar"
         android:orientation="horizontal"
         ></LinearLayout>
-    <TextView 
+
+    <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/title"
-        android:id="@+id/title"
-        android:textSize="120sp"
-        android:textColor="#FF696969"
         android:layout_centerHorizontal="true"
-	    />
+        android:gravity="center"
+        android:text="@string/pager_title"
+        android:textColor="#FF696969"
+        android:textSize="120sp" />
+
 </RelativeLayout>

@@ -38,11 +38,11 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -54,16 +54,21 @@ import android.widget.RelativeLayout.LayoutParams;
  */
 public class PagerActivity extends Activity {
 	private final int item[]={R.string.item1,R.string.item2,R.string.item3,R.string.item4,R.string.item5};
+	private final String TAG="PagerActivity";
 	public static final String DEFAULT="#FFDCDCDC";
 	public static final String SELECTED="#FF696969";
 	public static final int firstPage=0;
-    ViewPager pager;
+	
+    
+	ViewPager pager;
     TextView title;
     AudioManager audioManager;
+    
+    
     private LinearLayout pager_bar;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.pager_activity);
         Edge.getDisplayMetrics(this);
         
         audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
@@ -85,31 +90,7 @@ public class PagerActivity extends Activity {
         PagerAdapter adapter = new MyPagerAdapter();
         pager.setAdapter(adapter);
         pager.setCurrentItem(firstPage);
-        pager.setOnPageChangeListener(new OnPageChangeListener(){
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-				for(int i=0;i<item.length;i++)
-				{
-					CircleView cv=(CircleView)pager_bar.getChildAt(i);
-					cv.setColor(Color.parseColor(DEFAULT));
-				}
-				CircleView cv=(CircleView)pager_bar.getChildAt(pager.getCurrentItem());
-				cv.setColor(Color.parseColor(SELECTED));
-			}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onPageSelected(int arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-        });
+        pager.setOnPageChangeListener(onPageChangeListener);
         //Necessary or the pager will only have one extra page to show
         // make this at least however many pages you can see
         pager.setOffscreenPageLimit(adapter.getCount());
@@ -120,7 +101,29 @@ public class PagerActivity extends Activity {
         // clipping on the pager for its children.
         pager.setClipChildren(false);
 
-    }
+    }//onCreate
+    
+    private OnPageChangeListener onPageChangeListener =new OnPageChangeListener() {
+		@Override
+		public void onPageSelected(int pos) {
+
+		}
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+			for(int i=0;i<item.length;i++)
+			{
+				CircleView cv=(CircleView)pager_bar.getChildAt(i);
+				cv.setColor(Color.parseColor(DEFAULT));
+			}
+			CircleView cv=(CircleView)pager_bar.getChildAt(pager.getCurrentItem());
+			cv.setColor(Color.parseColor(SELECTED));
+		}
+	};//onPageChangeListener
     
 	private void initPages_bar()
 	{
@@ -129,10 +132,7 @@ public class PagerActivity extends Activity {
 			LinearLayout.LayoutParams l=new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 			l.weight=0.1f;
 			CircleView cv=new CircleView(PagerActivity.this);
-			if(i==firstPage)
-				cv.setColor(Color.parseColor(SELECTED));
-			else
-				cv.setColor(Color.parseColor(DEFAULT));
+			cv.setColor((firstPage==i)?Color.parseColor(SELECTED):Color.parseColor(DEFAULT));
 			cv.setId(5000+i);
 			cv.setLayoutParams(l);
 			pager_bar.addView(cv);
@@ -185,5 +185,8 @@ public class PagerActivity extends Activity {
         public boolean isViewFromObject(View view, Object object) {
             return (view == object);
         }
+    }//MyPagerAdapter
+    private void Log(String s){
+    	Log.e(TAG,s);
     }
 }
