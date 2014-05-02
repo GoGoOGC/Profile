@@ -1,0 +1,10 @@
+target/
+bin/
+gen/
+.settings/
+*.class
+.classpath
+.project
+.springBeans
+.db
+.thumb
